@@ -1,9 +1,3 @@
-window.onload = function () {
-    let link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "https://www.gwasexplorer.com/Website-Resources/CSS/wandermeadow.css";
-    document.head.appendChild(link);
-};
 
 // Function to dynamically add Chart.js via CDN
 function loadChartJS() {
