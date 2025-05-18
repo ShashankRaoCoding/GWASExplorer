@@ -10,7 +10,7 @@ body {
     width: 95%; 
     margin: 0; 
     color: white; 
-    justify-content: center; 
+    justify-self: center; 
 } 
 
 img { 
