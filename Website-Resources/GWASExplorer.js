@@ -1,17 +1,4 @@
 
-// Function to dynamically add Chart.js via CDN
-function loadChartJS() {
-    let script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
-    script.type = "text/javascript";
-    script.onload = function () {
-        console.log("Chart.js has been loaded!");
-        renderChart();
-    };
-    document.head.appendChild(script);
-}
-loadChartJS();
-
 
 function loadZoomPlugin() {
     let zoomScript = document.createElement("script");
