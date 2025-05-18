@@ -5,56 +5,9 @@
       <title>GWASExplorer</title>
     </head>
     <body> 
-      <style> 
-        html { 
-          height: 100%; 
-          width: 100%; 
-        } 
-        
-        body { 
-          background: linear-gradient(to right, rgb(51,51,51), black); 
-          height: 100%; 
-          width: 100%; 
-          margin: 0; 
-          color: white; 
-        } 
-        
-        .columns { 
-          display: flex; 
-          flex-direction: columns; 
-          justify-content: space-between; 
-          height: 100%; 
-          width: 100%; 
-          gap: 5px; 
-        } 
-        
-        .viewport { 
-          width: 70%; 
-					border-radius: 10px; 
-					border-style: solid; 
-        } 
-                
-        .contextmenu { 
-          width: 30%; 
-					border-radius: 10px; 
-					border-style: solid; 
-        } 
-        
-        input[type="file"] {
-          display: none;
-        }
-        
-        .file-button { 
-          cursor: pointer;
-          border-style: solid; 
-          border-radius: 5px; 
-          padding: 2px; 
-        } 
-        
-      </style> 
       <div class="columns"> 
         <div class="viewport"> 
-          <canvas id="scatterplot" width="400" height="200"></canvas><br> 
+          <canvas id="scatterplot" width="400" height="200">A chart will appear here once you select files. No data is sent to our servers!</canvas><br> 
             <label for="x-attr">X-Axis:</label>
             <select id="x-attr"></select><br> <br> <br> 
             <label for="y-attr">Y-Axis:</label>
