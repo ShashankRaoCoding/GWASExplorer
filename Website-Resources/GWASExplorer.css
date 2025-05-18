@@ -12,6 +12,11 @@ body {
     color: white; 
 } 
 
+image { 
+    max-width: 95%;
+    height: auto; 
+}
+
 .columns { 
     display: flex; 
     flex-direction: columns; 
