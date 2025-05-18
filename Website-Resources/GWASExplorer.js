@@ -22,7 +22,7 @@ idAttrSelect.addEventListener('change', renderChart);
 
 function showMessage(message, type = 'info') {
     messageDisplay.textContent = message;
-    messageDisplay.style.color = type === 'error' ? 'red' : 'green';
+    messageDisplay.style.color = type === 'error' ? 'red' : 'white';
 }
 
 function populateAttributeSelectors(attributes) {
