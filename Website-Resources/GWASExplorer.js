@@ -1,17 +1,4 @@
 
-
-function loadZoomPlugin() {
-    let zoomScript = document.createElement("script");
-    zoomScript.src = "https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom";
-    zoomScript.type = "text/javascript";
-    zoomScript.onload = function () {
-        console.log("Chartjs Zoom plugin loaded!");
-    };
-    document.head.appendChild(zoomScript);
-}
-
-loadZoomPlugin();
-
 const readerModeButton = document.getElementsByClassName("readermode")[0];
 if (readerModeButton) {
     readerModeButton.click();
