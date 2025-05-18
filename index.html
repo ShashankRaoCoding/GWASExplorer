@@ -1,31 +1,41 @@
-
-<html> 
-    <head> 
-      <link rel="stylesheet" href="https://www.gwasexplorer.com/Website-Resources/GWASExplorer.css">
-      <title>GWASExplorer</title>
-    </head>
-    <body> 
-      <div class="columns"> 
-        <div class="viewport"> 
-          <canvas id="scatterplot" width="400" height="200">A chart will appear here once you select files. No data is sent to our servers!</canvas><br> 
-            <label for="x-attr">X-Axis:</label>
-            <select id="x-attr"></select><br> <br> <br> 
-            <label for="y-attr">Y-Axis:</label>
-            <select id="y-attr"></select><br> <br> <br> 
-            <label for="id-attr">ID:</label> <!-- New label for the ID selector -->
-            <select id="id-attr"></select> <!-- New selector for ID --><br> <br> <br> 
-          <label class="file-button"> Choose files to Visualise 
-            <input type="file" id="file-input" multiple />
-          </label> 
-          <p id="file-content"></p>
-        </div> 
-        <div class="contextmenu"> 
-    <div style="color: white;" id="message"></div>
-        </div> 
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://www.gwasexplorer.com/Website-Resources/GWASExplorer.css"
+    />
+    <title>GWASExplorer</title>
+  </head>
+  <body>
+    <div class="columns">
+      <div class="viewport">
+        <canvas id="scatterplot" width="400" height="200"
+          >A chart will appear here once you select files. No data is sent to
+          our servers!</canvas
+        ><br />
+        <label for="x-attr">X-Axis:</label>
+        <select id="x-attr"></select
+        >
+        <label for="y-attr">Y-Axis:</label>
+        <select id="y-attr"></select
+        >
+        <label for="id-attr">ID:</label>
+        <!-- New label for the ID selector -->
+        <select id="id-attr"></select>
+        <!-- New selector for ID -->
+        <p id="file-content"></p>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
-      <script src="https://www.gwasexplorer.com/Website-Resources/GWASExplorer.js"></script>
-    </body>
-    <footer>This site is NOT the GWAS Explorer hosted by the NCI.</footer>
+      <div class="contextmenu">
+        <label class="file-button">
+          Choose files to Visualise
+          <input type="file" id="file-input" multiple />
+        </label>
+        <div style="color: white;" id="message"></div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <script src="https://www.gwasexplorer.com/Website-Resources/GWASExplorer.js"></script>
+  </body>
+  <footer>This site is NOT the GWAS Explorer hosted by the NCI.</footer>
 </html>
