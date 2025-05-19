@@ -31,7 +31,7 @@ img {
     background-color: rgb(51,51,51);
     width: 70%; 
     border-radius: 10px; 
-    transform: translateX(-100%);
+    transform: translateX(-120%);
 } 
                
 .viewportshown { 
@@ -46,7 +46,7 @@ img {
     background-color: rgb(51,51,51);
     padding: 2px; 
     border-radius: 10px; 
-    transform: translateX(-100%);
+    transform: translateX(-120%);
     align-items: center;
     text-align: center;
 } 
