@@ -4,6 +4,8 @@ if (readerModeButton) {
     readerModeButton.click();
 }
 
+const viewport = document.getElementById('viewport');
+const contextmenu = document.getElementById('contextmenu');
 const fileInput = document.getElementById('file-input');
 const fileContentDisplay = document.getElementById('file-content');
 const messageDisplay = document.getElementById('message');
@@ -136,6 +138,8 @@ function renderChart() {
         showMessage("No valid numeric data found for the selected attributes.", 'error');
         return;
     } else {
+        viewport.className = "viewportshown" 
+        contextmenu.className = "contextmenuunfocussed"
         showMessage("Chart rendered successfully.", 'success');
     }
 
