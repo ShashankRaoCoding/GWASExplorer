@@ -34,7 +34,19 @@ function populateAttributeSelectors(attributes) {
             const option = new Option(attr, attr);
             select.add(option);
         });
-        select.value = attributes[0];
+
+        attributeIndex = 0 
+        
+        for (let i = 0; i < attributes.length; i++) { 
+            if (allSNPData[0][attributes[i]] == NaN ) { 
+                continue 
+            } else { 
+                attributeIndex = i 
+                break
+            }
+        }
+
+        select.value = attributes[attributeIndex] 
     };
     [xAttrSelect, yAttrSelect, idAttrSelect].forEach(createOptions);
 }
