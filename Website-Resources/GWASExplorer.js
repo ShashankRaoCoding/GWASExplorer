@@ -16,6 +16,7 @@ let chart = null;
 let allSNPData = [];
 let allAttributes = [];
 let colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFA1', '#FFA133'];
+let fileNames = [] 
 
 fileInput.addEventListener('change', plotChart);
 xAttrSelect.addEventListener('change', renderChart);
@@ -34,24 +35,14 @@ function populateAttributeSelectors(attributes) {
             const option = new Option(attr, attr);
             select.add(option);
         });
-
-        attributeIndex = 0 
-        
-        for (let i = 0; i < attributes.length; i++) { 
-            if (allSNPData[0][attributes[i]] == NaN ) { 
-                continue 
-            } else { 
-                attributeIndex = i 
-                break
-            }
-        }
-
-        select.value = attributes[attributeIndex] 
+        select.value = attributes[0];
     };
     [xAttrSelect, yAttrSelect, idAttrSelect].forEach(createOptions);
 }
 
 function plotChart(event) {
+    viewport.className = "viewportshown" 
+    contextmenu.className = "contextmenuunfocussed"
     const files = event.target.files;
     fileContentDisplay.textContent = '';
     messageDisplay.textContent = '';
@@ -73,6 +64,8 @@ function plotChart(event) {
             showMessage(`Unsupported file type: ${file.name}. Please select TSV files only.`, 'error');
             return;
         }
+
+        fileNames.push(file.name) 
 
         const reader = new FileReader();
         reader.onload = () => {
@@ -124,7 +117,7 @@ function renderChart() {
 
     allSNPData.forEach((dataset, idx) => {
         const formatted = {
-            label: `Dataset ${idx + 1}`,
+            label: `${fileNames[idx]}`,
             data: [],
             backgroundColor: colors[idx % colors.length],
             borderColor: colors[idx % colors.length],
@@ -150,8 +143,6 @@ function renderChart() {
         showMessage("No valid numeric data found for the selected attributes.", 'error');
         return;
     } else {
-        viewport.className = "viewportshown" 
-        contextmenu.className = "contextmenuunfocussed"
         showMessage("Chart rendered successfully.", 'success');
     }
 
