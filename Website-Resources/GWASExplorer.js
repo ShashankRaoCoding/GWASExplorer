@@ -40,6 +40,7 @@ function populateAttributeSelectors(attributes) {
     [xAttrSelect, yAttrSelect, idAttrSelect].forEach(createOptions);
 }
 
+//yey 
 function plotChart(event) {
     document.getElementsByClassName("attributeselectorhidden").forEach((x) => { 
         x.className = "attributeselectorshown" 
