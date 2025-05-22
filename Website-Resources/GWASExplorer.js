@@ -12,6 +12,7 @@ const messageDisplay = document.getElementById('message');
 const xAttrSelect = document.getElementById('x-attr');
 const yAttrSelect = document.getElementById('y-attr');
 const idAttrSelect = document.getElementById('id-attr');
+const attributeselectors = document.getElementsByClassName("attributeselectorhidden") 
 let chart = null;
 let allSNPData = [];
 let allAttributes = [];
@@ -42,7 +43,7 @@ function populateAttributeSelectors(attributes) {
 
 //yey 
 function plotChart(event) {
-    document.getElementsByClassName("attributeselectorhidden").forEach((x) => { 
+    [...attributeselectors].forEach((x) => { 
         x.className = "attributeselectorshown" 
     })
     viewport.className = "viewportshown" 
