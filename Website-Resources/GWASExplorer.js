@@ -140,7 +140,7 @@ function renderChart() {
     });
 
     if (!hasValidData) {
-        showMessage("No valid numeric data found for the selected attributes.", 'error');
+        showMessage("Please select attributes from the dropdown that have numeric values to plot. For example, this can be the position, or the chromosome number. ", 'error');
         return;
     } else {
         showMessage("Chart rendered successfully.", 'success');
