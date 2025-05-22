@@ -11,16 +11,6 @@
     <div class="columns">
       <div class="viewporthidden" id="viewport">
         <br> 
-        <label for="x-attr">X-Axis:</label>
-        <select id="x-attr"></select
-        >
-        <label for="y-attr">Y-Axis:</label>
-        <select id="y-attr"></select
-        >
-        <label for="id-attr">ID:</label>
-        <!-- New label for the ID selector -->
-        <select id="id-attr"></select>
-        <!-- New selector for ID -->
         <p id="file-content"></p>
         <canvas id="scatterplot" width="400" height="200"
           ></canvas
@@ -35,7 +25,24 @@
         <br> 
         <br> 
         <div style="color: white;" id="message">A chart will appear to the left once you select files to visualise.To learn how to use, see <a style="color: white;" href="https://www.gwasexplorer.com/How-to-use">How to Use? </a> </a></div>
+        <div class="attributeselectorhidden"> 
+          <label for="x-attr">X-Axis:</label>
+          <select id="x-attr"></select
+          >
+        </div>
+        <div class="attributeselectorhidden"> 
+          <label for="y-attr">Y-Axis:</label>
+          <select id="y-attr"></select
+          >
+        </div>
+        <div class="attributeselectorhidden"> 
+          <label for="id-attr">ID:</label>
+          <!-- New label for the ID selector -->
+          <select id="id-attr"></select>
+          <!-- New selector for ID -->
       </div>
+      <br> 
+      <br> 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>

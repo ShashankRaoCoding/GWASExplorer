@@ -41,6 +41,8 @@ function populateAttributeSelectors(attributes) {
 }
 
 function plotChart(event) {
+    xAttrSelect.className = "attributeselectorshown"
+    yAttrSelect.className = "attributeselectorshown"
     viewport.className = "viewportshown" 
     contextmenu.className = "contextmenuunfocussed"
     const files = event.target.files;
