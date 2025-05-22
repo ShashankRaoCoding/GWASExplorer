@@ -64,6 +64,7 @@ img {
      
 .attributeselectorhidden { 
     width: 30%; 
+    display: none; 
     background-color: rgb(51,51,51);
     padding: 2px; 
     border-radius: 10px; 
