@@ -41,7 +41,7 @@ function populateAttributeSelectors(attributes) {
 }
 
 function plotChart(event) {
-    document.getElementsByClassName("readermode").forEach((x) => { 
+    document.getElementsByClassName("attributeselectorhidden").forEach((x) => { 
         x.className = "attributeselectorshown" 
     })
     viewport.className = "viewportshown" 
