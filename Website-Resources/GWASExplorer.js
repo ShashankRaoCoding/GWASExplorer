@@ -1,9 +1,4 @@
-
-const readerModeButton = document.getElementsByClassName("readermode")[0];
-if (readerModeButton) {
-    readerModeButton.click();
-}
-
+const selectorDivs = Array.from(document.getElementsByClassName("attributeselectorhidden"));
 const viewport = document.getElementById('viewport');
 const contextmenu = document.getElementById('contextmenu');
 const fileInput = document.getElementById('file-input');
@@ -12,21 +7,80 @@ const messageDisplay = document.getElementById('message');
 const xAttrSelect = document.getElementById('x-attr');
 const yAttrSelect = document.getElementById('y-attr');
 const idAttrSelect = document.getElementById('id-attr');
-const attributeselectors = document.getElementsByClassName("attributeselectorhidden") 
+
 let chart = null;
-let allSNPData = [];
-let allAttributes = [];
-let colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFA1', '#FFA133'];
-let fileNames = [] 
+const allData = {}; 
+const allAttributes = new Set(); 
+const fileNames = [];
+const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFA1', '#FFA133'];
 
 fileInput.addEventListener('change', plotChart);
-xAttrSelect.addEventListener('change', renderChart);
-yAttrSelect.addEventListener('change', renderChart);
-idAttrSelect.addEventListener('change', renderChart);
 
 function showMessage(message, type = 'info') {
     messageDisplay.textContent = message;
     messageDisplay.style.color = type === 'error' ? 'red' : 'white';
+}
+
+function plotChart(event) {
+    const files = event.target.files;
+
+    if (!files.length) {
+        showMessage('No files selected.', 'error');
+        return;
+    }
+
+    // Reset state
+    Object.keys(allData).forEach(k => delete allData[k]);
+    allAttributes.clear();
+    fileNames.length = 0;
+
+    const readPromises = Array.from(files).map(file => {
+        return new Promise((resolve, reject) => {
+            if (!file.name.endsWith('.tsv')) {
+                showMessage(`Unsupported file type: ${file.name}.`, 'error');
+                return resolve(); // skip this file
+            }
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const lines = reader.result.split('\n').filter(line => line.trim().length > 0);
+                if (lines.length === 0) return resolve();
+
+                const header = lines[0].split('\t');
+                fileNames.push(file.name);
+                allData[file.name] = [];
+
+                // Update unique attributes
+                header.forEach(attr => allAttributes.add(attr));
+
+                // Parse SNPs
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split('\t');
+                    const SNP = {};
+                    header.forEach((attr, idx) => SNP[attr] = values[idx]);
+                    allData[file.name].push(SNP);
+                }
+
+                resolve();
+            };
+            reader.onerror = () => reject(`Failed to read ${file.name}`);
+            reader.readAsText(file);
+        });
+    });
+
+    Promise.all(readPromises).then(() => {
+        if (fileNames.length === 0) {
+            showMessage('No valid TSV files loaded.', 'error');
+            return;
+        }
+
+        [...selectorDivs].forEach(x => x.className = "attributeselectorshown");
+        viewport.className = "viewportshown";
+        contextmenu.className = "contextmenuunfocussed";
+
+        populateAttributeSelectors(Array.from(allAttributes));
+        renderChart(allData);
+    });
 }
 
 function populateAttributeSelectors(attributes) {
@@ -36,93 +90,31 @@ function populateAttributeSelectors(attributes) {
             const option = new Option(attr, attr);
             select.add(option);
         });
-        select.value = attributes[0];
+        select.value = attributes[0] || '';
     };
     [xAttrSelect, yAttrSelect, idAttrSelect].forEach(createOptions);
+
+    xAttrSelect.addEventListener('change', () => renderChart(allData));
+    yAttrSelect.addEventListener('change', () => renderChart(allData));
+    idAttrSelect.addEventListener('change', () => renderChart(allData));
 }
 
-//yey 
-function plotChart(event) {
-    [...attributeselectors].forEach((x) => { 
-        x.className = "attributeselectorshown" 
-    })
-    viewport.className = "viewportshown" 
-    contextmenu.className = "contextmenuunfocussed"
-    const files = event.target.files;
-    fileContentDisplay.textContent = '';
-    messageDisplay.textContent = '';
-
-    if (!files.length) {
-        showMessage('No files selected. Please choose at least one TSV file.', 'error');
-        return;
-    }
-
-    // Reset global state
-    allSNPData = [];
-    allAttributes = [];
-
-    let expectedHeader = null;
-    let loadedFiles = 0;
-
-    Array.from(files).forEach((file, index) => {
-        if (!file.name.endsWith('.tsv')) {
-            showMessage(`Unsupported file type: ${file.name}. Please select TSV files only.`, 'error');
-            return;
-        }
-
-        fileNames.push(file.name) 
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            const datatext = reader.result;
-            const lines = datatext.split('\n').filter(line => line.trim().length > 0);
-            const header = lines[0].split('\t');
-
-            // First file sets expected header
-            if (expectedHeader === null) {
-                expectedHeader = header;
-            } 
-
-            const data = readData(lines, header);
-            allSNPData.push(data);
-            allAttributes = [...new Set([...allAttributes, ...header])];
-
-            loadedFiles++;
-            if (loadedFiles === files.length) {
-                populateAttributeSelectors(expectedHeader);
-                renderChart();
-            }
-        };
-
-        reader.onerror = () => showMessage(`Error reading file: ${file.name}`, 'error');
-        reader.readAsText(file);
-    });
-}
-
-function readData(lines, attributes) {
-    return lines.slice(1).map(line => {
-        const parts = line.split('\t');
-        return Object.fromEntries(attributes.map((attr, i) => [attr, parts[i]]));
-    });
-}
-
-function renderChart() {
-    if (!xAttrSelect.value || !yAttrSelect.value || !idAttrSelect.value) return;
-
+function renderChart(dataMap) {
     const xAttr = xAttrSelect.value;
     const yAttr = yAttrSelect.value;
     const idAttr = idAttrSelect.value;
 
-    if (chart) {
-        chart.destroy();
-    }
+    if (!xAttr || !yAttr || !idAttr) return;
+
+    if (chart) chart.destroy();
 
     const datasets = [];
     let hasValidData = false;
 
-    allSNPData.forEach((dataset, idx) => {
-        const formatted = {
-            label: `${fileNames[idx]}`,
+    fileNames.forEach((file, idx) => {
+        const entries = dataMap[file];
+        const dataset = {
+            label: file,
             data: [],
             backgroundColor: colors[idx % colors.length],
             borderColor: colors[idx % colors.length],
@@ -130,26 +122,26 @@ function renderChart() {
             pointHoverRadius: 7
         };
 
-        dataset.forEach(entry => {
+        entries.forEach(entry => {
             const x = parseFloat(entry[xAttr]);
             const y = parseFloat(entry[yAttr]);
             const id = entry[idAttr] || '';
 
             if (!isNaN(x) && !isNaN(y)) {
-                formatted.data.push({ x, y, id });
+                dataset.data.push({ x, y, id });
                 hasValidData = true;
             }
         });
 
-        datasets.push(formatted);
+        datasets.push(dataset);
     });
 
     if (!hasValidData) {
-        showMessage("Please select attributes from the dropdown that have numeric values to plot. For example, this can be the position, or the chromosome number. ", 'error');
+        showMessage("Please select numeric attributes to plot.", 'error');
         return;
-    } else {
-        showMessage("Chart rendered successfully.", 'success');
     }
+
+    showMessage("Chart rendered successfully.", 'success');
 
     const ctx = document.getElementById('scatterplot').getContext('2d');
     chart = new Chart(ctx, {
@@ -164,20 +156,13 @@ function renderChart() {
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: (tooltipItem) => `${xAttr}: ${tooltipItem.raw.x}, ${yAttr}: ${tooltipItem.raw.y}, ${idAttr}: ${tooltipItem.raw.id}`
+                        label: (tooltipItem) =>
+                            `${xAttr}: ${tooltipItem.raw.x}, ${yAttr}: ${tooltipItem.raw.y}, ${idAttr}: ${tooltipItem.raw.id}`
                     }
                 },
                 zoom: {
-                    pan: {
-                        enabled: true,
-                        mode: 'xy', // Allow panning in both x and y directions
-                        speed: 10
-                    },
-                    zoom: {
-                        enabled: true,
-                        mode: 'xy', // Allow zooming in both x and y directions
-                        speed: 0.1
-                    }
+                    pan: { enabled: true, mode: 'xy', speed: 10 },
+                    zoom: { enabled: true, mode: 'xy', speed: 0.1 }
                 }
             }
         }
