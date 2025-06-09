@@ -40,16 +40,25 @@
           <!-- New label for the ID selector -->
           <select id="id-attr"></select>
         </div> <br> <br> 
-        <!-- New selector for ID -->
-        <div id="box" class="boxhidden"> 
+
+        <div class="attributeselectorhidden"> 
+          <label for="pos-attr">Pos:</label>
+          <!-- New label for the ID selector -->
+          <select id="pos-attr"></select>
         </div> <br> <br> 
-
-
+        <div class="attributeselectorhidden"> 
+          <label for="chrom-attr">Chrom:</label>
+          <!-- New label for the ID selector -->
+          <select id="chrom-attr"></select>
+        </div> <br> <br> 
+        <div class="attributeselectorhidden"> 
+          <button class="file-button" onclick="mergeForManhattan()" id="plot">Merge Chromosomes and Positions</button>
+        </div> <br> <br>
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
-    <script src="Website-Resources/quickPlot.js"></script>
+    <script src="Website-Resources/GWASExplorer.js"></script>
   </body>
   <footer>This site is NOT the GWAS Explorer hosted by the NCI.</footer>
 </html>

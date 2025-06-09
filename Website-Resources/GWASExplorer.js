@@ -7,7 +7,8 @@ const messageDisplay = document.getElementById('message');
 const xAttrSelect = document.getElementById('x-attr');
 const yAttrSelect = document.getElementById('y-attr');
 const idAttrSelect = document.getElementById('id-attr');
-
+const posSelector = document.getElementById("pos-attr") ; 
+const chromSelector = document.getElementById("chrom-attr") 
 let chart = null;
 const allData = {}; 
 const allAttributes = new Set(); 
@@ -77,14 +78,21 @@ function plotChart(event) {
         [...selectorDivs].forEach(x => x.className = "attributeselectorshown");
         viewport.className = "viewportshown";
         contextmenu.className = "contextmenuunfocussed";
-        box.className = "boxshown";
 
-        populateAttributeSelectors(Array.from(allAttributes));
+        populateAttributeSelectors(allAttributes);
+        addListeners(); 
         renderChart(allData);
     });
 }
 
+function addListeners() { 
+  xAttrSelect.addEventListener('change', () => renderChart(allData));
+  yAttrSelect.addEventListener('change', () => renderChart(allData));
+  idAttrSelect.addEventListener('change', () => renderChart(allData));
+}
+
 function populateAttributeSelectors(attributes) {
+    attributes = Array.from(allAttributes) 
     const createOptions = (select) => {
         select.innerHTML = '';
         attributes.forEach(attr => {
@@ -93,11 +101,7 @@ function populateAttributeSelectors(attributes) {
         });
         select.value = attributes[0] || '';
     };
-    [xAttrSelect, yAttrSelect, idAttrSelect].forEach(createOptions);
-
-    xAttrSelect.addEventListener('change', () => renderChart(allData));
-    yAttrSelect.addEventListener('change', () => renderChart(allData));
-    idAttrSelect.addEventListener('change', () => renderChart(allData));
+    [xAttrSelect, yAttrSelect, idAttrSelect, posSelector, chromSelector].forEach(createOptions);
 }
 
 function renderChart(dataMap) {
@@ -249,8 +253,44 @@ function query(rsid) {
     })
     .catch((error) => {
       console.error("Error fetching GNOMAD data:", error);
-      box.innerHTML = `<div>⚠️ Error: ${error.message}</div>`;
+      box.innerHTML = `<div>Error: ${error.message}</div>`;
     });
 }
 
+function mergeForManhattan() { 
+  const pos = posSelector.value; 
+  const chromosome = chromSelector.value; 
+  const fileNames = Object.keys(allData);
+  const maxLengths = {};  // e.g., { "1": 8, "2": 7, "X": 9 }
+
+  // Step 1: Find max position string length per chromosome
+  fileNames.forEach(filename => { 
+    const snps = allData[filename];
+    snps.forEach(data => { 
+      const chrom = data[chromosome];
+      const posLength = data[pos].toString().length;
+      if (!maxLengths[chrom] || posLength > maxLengths[chrom]) {
+        maxLengths[chrom] = posLength;
+      }
+    });
+  });
+
+  // Step 2: Construct manhattanised string using max pad
+  fileNames.forEach(filename => { 
+    const snps = allData[filename];
+    for (let i = 0; i < snps.length; i++) { 
+      const chrom = snps[i][chromosome];
+      const paddedPos = snps[i][pos].toString().padStart(maxLengths[chrom], "0");
+      snps[i]["manhattanised"] = `${chrom}.${paddedPos}`;
+      console.log(snps[i]["manhattanised"]);
+      showMessage(snps[i]["manhattanised"]);
+    }
+  });
+
+  allAttributes.add("manhattanised"); 
+  populateAttributeSelectors(allAttributes); 
+
+  xAttrSelect.value = "manhattanised"; 
+  renderChart(allData); 
+}
 
