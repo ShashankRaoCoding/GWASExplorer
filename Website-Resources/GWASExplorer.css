@@ -47,6 +47,9 @@ img {
 } 
      
 .contextmenufocussed { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
     width: 30%; 
     background-color: rgb(51,51,51);
     padding: 2px; 
@@ -59,10 +62,10 @@ img {
 } 
      
 .contextmenuunfocussed { 
-    width: 30%; 
     display: flex; 
     flex-direction: column; 
     gap: 10px; 
+    width: 30%; 
     background-color: rgb(51,51,51);
     padding: 2px; 
     border-radius: 10px; 
