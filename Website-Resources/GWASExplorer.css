@@ -1,3 +1,5 @@
+
+
 <<<<<<< HEAD
 
 html { 
@@ -5,6 +7,10 @@ html {
     width: 100%; 
 } 
 
+p { 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 body { 
     background-color: black;
     height: 95%; 
@@ -109,7 +115,6 @@ input[type="file"] {
     transform: scale(1.05);
     transition: ease-in-out 0.2s;
 } 
-=======
 
 html { 
     height: 95%; 
@@ -199,6 +204,32 @@ img {
     height: 100%; 
     overflow: hidden; 
 } 
+     
+.boxshown { 
+    display: inline; 
+    width: 30%; 
+    background-color: rgb(51,51,51);
+    padding: 2px; 
+    border-radius: 10px; 
+    align-items: center;
+    transition: ease-in-out 0.5s; 
+    text-align: center;
+    height: 100%; 
+    overflow: hidden; 
+} 
+     
+.boxhidden { 
+    display: none; 
+    width: 30%; 
+    background-color: rgb(51,51,51);
+    padding: 2px; 
+    border-radius: 10px; 
+    align-items: center;
+    transition: ease-in-out 0.5s; 
+    text-align: center;
+    height: 100%; 
+    overflow: hidden; 
+} 
 
 input[type="file"] {
     display: none;
@@ -220,4 +251,88 @@ input[type="file"] {
     transform: scale(1.05);
     transition: ease-in-out 0.2s;
 } 
->>>>>>> d7aa278527a8f6fc8f026184d774a2564a3d19d4
+
+
+html { 
+  height: 95%; 
+  width: 100%; 
+} 
+
+body { 
+  background-color: black;
+  height: 95%; 
+  width: 95%; 
+  margin: 0; 
+  color: white; 
+  justify-self: center; 
+} 
+
+.page-container { 
+  display: flex; 
+  flex-direction: column; 
+  width: 100%; 
+  height: 100%; 
+  justify-content: center; 
+  align-items: center; 
+} 
+
+.row { 
+  display: flex; 
+  flex-direction: row; 
+  width: 100%; 
+  justify-content: space-evenly; 
+  align-items: center; 
+} 
+
+.option { 
+  background-color: rgb(51,51,51); 
+  padding: 2%; 
+  border-radius: 10px; 
+  transition: ease-in 0.25s; 
+} 
+
+.option:hover { 
+  background-color: rgb(91,91,91); 
+} 
+
+input[type="file"] {
+  display: none;
+}
+
+.file-button { 
+  cursor: pointer;
+  background-color: rgb(91,91,91);
+  border-radius: 5px; 
+  transition: ease-in-out 0.2s; 
+  padding: 2px; 
+} 
+
+.file-button:hover { 
+  cursor: pointer;
+  background-color: rgb(91,91,91);
+  border-radius: 5px; 
+  padding: 2px; 
+  transform: scale(1.05);
+  transition: ease-in-out 0.2s;
+} 
+
+.validate { 
+  color: white; 
+  cursor: pointer;
+  background-color: rgb(91,91,91);
+  border-radius: 5px; 
+  transition: ease-in-out 0.2s; 
+  padding: 2%x; 
+} 
+
+.validate:hover { 
+  cursor: pointer;
+  background-color: rgb(91,91,91);
+  transform: scale(1.05);
+  transition: ease-in-out 0.2s;
+} 
+
+.selectors { 
+  display: flex; 
+  flex-direction: column; 
+}

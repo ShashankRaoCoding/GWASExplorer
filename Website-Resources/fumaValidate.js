@@ -108,7 +108,7 @@ const checkFunctions = {
 };
 
 function validate(allData) {
-		const messages = document.getElementById("message") 
+		const messages = document.getElementById("validateMessage") 
     const attrs = {
         pvalue: document.getElementById("pvalue").value,
         beta: document.getElementById("beta").value,
@@ -139,7 +139,7 @@ function validate(allData) {
         if (checker) {
             const valid = checker(allData, attrName);
             console.log(`${key} → ${attrName} is ${valid ? ":D valid" : ":O invalid"}`);
-            messages.innerHTML = messages.innerHTML + `${key} → ${attrName} is ${valid ? "✅ valid" : "❌ invalid"}<br>`
+            messages.innerHTML = messages.innerHTML + `${key} → ${attrName} is ${valid ? "valid" : "invalid"}<br>`
         }
     }
 }
