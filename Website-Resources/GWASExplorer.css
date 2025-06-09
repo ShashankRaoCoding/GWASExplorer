@@ -56,7 +56,6 @@ img {
     border-radius: 10px; 
     transform: translateX(-120%);
     height: 100%; 
-    flex-direction: row; 
     align-items: center;
     text-align: center;
 } 
