@@ -323,6 +323,7 @@ input[type="file"] {
   border-radius: 5px; 
   transition: ease-in-out 0.2s; 
   padding: 2%x; 
+  display: none; 
 } 
 
 .validate:hover { 
