@@ -77,6 +77,7 @@ function plotChart(event) {
         [...selectorDivs].forEach(x => x.className = "attributeselectorshown");
         viewport.className = "viewportshown";
         contextmenu.className = "contextmenuunfocussed";
+        box.className = "boxshown";
 
         populateAttributeSelectors(Array.from(allAttributes));
         renderChart(allData);
@@ -157,8 +158,10 @@ function renderChart(dataMap) {
 
                     const dataset = chart.data.datasets[datasetIndex];
                     const dataPoint = dataset.data[index];
+
+                    query(dataPoint.id) 
                     
-                    openInNewTab(`https://www.genecards.org/Search/Keyword?queryString=${dataPoint.id}`)
+                    //openInNewTab(`https://www.genecards.org/Search/Keyword?queryString=${dataPoint.id}`)
 
                 }
             },
@@ -185,4 +188,69 @@ function renderChart(dataMap) {
 function openInNewTab(url) {
     window.open(url, '_blank');
 }
+
+const box = document.getElementById("box");
+
+function query(rsid) {
+  const query = `
+    query VariantByRSID {
+      variant(dataset: gnomad_r4, rsid: "${rsid}") {
+        variant_id
+        pos
+        ref
+        alt
+        exome {
+          ac
+          an
+        }
+      }
+    }
+  `;
+
+  fetch("https://gnomad.broadinstitute.org/api", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const variant = data?.data?.variant;
+
+      if (!variant) {
+        box.innerHTML = `<div>Variant not found for <b>${rsid}</b>.</div>`;
+        return;
+      }
+
+      const { variant_id, pos, ref, alt, exome } = variant;
+
+      let resultHTML = `
+        <div><strong>Variant ID:</strong> ${variant_id}</div>
+        <div><strong>Position:</strong> ${pos}</div>
+        <div><strong>Ref/Alt:</strong> ${ref} / ${alt}</div>
+      `;
+
+      if (exome) {
+        const { ac, an } = exome;
+        const af = an ? (ac / an).toFixed(5) : "N/A";
+        resultHTML += `
+          <div><strong>AC:</strong> ${ac}</div>
+          <div><strong>AN:</strong> ${an}</div>
+          <div><strong>Allele Frequency:</strong> ${af}</div>
+        `;
+      } else {
+        resultHTML += `
+          <div style="color: gray;">No exome data available for this variant.</div>
+        `;
+      }
+
+      box.innerHTML = resultHTML;
+    })
+    .catch((error) => {
+      console.error("Error fetching GNOMAD data:", error);
+      box.innerHTML = `<div>⚠️ Error: ${error.message}</div>`;
+    });
+}
+
 
