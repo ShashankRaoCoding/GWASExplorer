@@ -58,6 +58,7 @@ img {
     height: 100%; 
     align-items: center;
     text-align: center;
+    justify-content: center;
 } 
      
 .contextmenuunfocussed { 
@@ -72,6 +73,7 @@ img {
     transition: ease-in-out 0.5s; 
     text-align: center;
     align-content: center; 
+    justify-content: center;
 } 
      
 .attributeselectorhidden { 
