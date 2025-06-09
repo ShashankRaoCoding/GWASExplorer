@@ -7,65 +7,57 @@
     <title>GWASExplorer</title>
   </head>
   <body>
-    <br> 
-    <div class="columns">
+        <div class="columns">
       <div class="viewporthidden" id="viewport">
-        <br> 
-        <p id="file-content"></p>
+                <p id="file-content"></p>
         <canvas id="scatterplot" width="400" height="200"
           ></canvas
-        ><br />
+        ><br>
       </div>
       <div class="contextmenufocussed" id="contextmenu">
-        <br> 
         <label class="file-button">
           Choose files to Visualise
           <input type="file" id="file-input" multiple />
         </label>
-        <br> 
-        <br> 
+
+        
         <div style="color: white;" id="message">A chart will appear on the left once you select plottable parameters (anything numeric). Set the ID to the rsid column name, and hover over the data points for more info. Click on a data point to query it with GNOMAD automatically </div>
         <div class="attributeselectorhidden"> 
           <label for="x-attr">X-Axis:</label>
           <select id="x-attr"></select
           >
-        </div> <br> <br> 
+        </div> 
         <div class="attributeselectorhidden"> 
           <label for="y-attr">Y-Axis:</label>
           <select id="y-attr"></select
           >
-        </div> <br> <br> 
+        </div> 
         <div class="attributeselectorhidden"> 
           <label for="id-attr">ID:</label>
           <!-- New label for the ID selector -->
           <select id="id-attr"></select>
-        </div> <br> <br> 
-
+        </div> 
+        <!-- New selector for ID -->
+        <div id="box" class="box"> 
+          GNOMAD query results will appear here. Click on a data point on the chart to use. 
+        </div> 
         <div class="attributeselectorhidden"> 
           <p> The below can be filled if you would like to merge chromosomes and positions to plot a Manhattan Chart</p>
-        </div> <br> <br> 
-        <div class="attributeselectorhidden"> 
+        </div>         <div class="attributeselectorhidden"> 
           <label for="pos-attr">Pos:</label>
           <!-- New label for the ID selector -->
           <select id="pos-attr"></select>
-        </div> <br> <br> 
-        <div class="attributeselectorhidden"> 
+        </div>         <div class="attributeselectorhidden"> 
           <label for="chrom-attr">Chrom:</label>
           <!-- New label for the ID selector -->
           <select id="chrom-attr"></select>
-        </div> <br> <br> 
-        <div class="attributeselectorhidden"> 
+        </div>         <div class="attributeselectorhidden"> 
           <label for="yAxis-attr">yAxis:</label>
           <!-- New label for the ID selector -->
           <select id="yAxis-attr"></select>
-        </div> <br> <br> 
-        <div class="attributeselectorhidden"> 
+        </div>         <div class="attributeselectorhidden"> 
           <button class="file-button" onclick="mergeForManhattan()" id="plot">Plot Manhattan Chart </button>
         </div> <br> <br>
-
-        <!-- New selector for ID -->
-        <div id="box" class="boxhidden"> 
-        </div> <br> <br> 
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

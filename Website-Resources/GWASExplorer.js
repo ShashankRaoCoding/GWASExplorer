@@ -224,7 +224,6 @@ function query(rsid) {
       const variant = data?.data?.variant;
 
       if (!variant) {
-        box.className = "boxshown";
         box.innerHTML = `<div>Variant not found for <b>${rsid}</b>.</div>`;
         return;
       }
