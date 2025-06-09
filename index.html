@@ -42,6 +42,9 @@
         </div> <br> <br> 
 
         <div class="attributeselectorhidden"> 
+          <p> The below can be filled if you would like to merge chromosomes and positions to plot a Manhattan Chart</p>
+        </div> <br> <br> 
+        <div class="attributeselectorhidden"> 
           <label for="pos-attr">Pos:</label>
           <!-- New label for the ID selector -->
           <select id="pos-attr"></select>
@@ -52,8 +55,17 @@
           <select id="chrom-attr"></select>
         </div> <br> <br> 
         <div class="attributeselectorhidden"> 
-          <button class="file-button" onclick="mergeForManhattan()" id="plot">Merge Chromosomes and Positions</button>
+          <label for="yAxis-attr">yAxis:</label>
+          <!-- New label for the ID selector -->
+          <select id="yAxis-attr"></select>
+        </div> <br> <br> 
+        <div class="attributeselectorhidden"> 
+          <button class="file-button" onclick="mergeForManhattan()" id="plot">Plot Manhattan Chart </button>
         </div> <br> <br>
+
+        <!-- New selector for ID -->
+        <div id="box" class="boxhidden"> 
+        </div> <br> <br> 
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

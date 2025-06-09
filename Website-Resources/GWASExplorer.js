@@ -9,6 +9,7 @@ const yAttrSelect = document.getElementById('y-attr');
 const idAttrSelect = document.getElementById('id-attr');
 const posSelector = document.getElementById("pos-attr") ; 
 const chromSelector = document.getElementById("chrom-attr") 
+const yAxisSelector = document.getElementById("yAxis-attr") 
 let chart = null;
 const allData = {}; 
 const allAttributes = new Set(); 
@@ -101,7 +102,7 @@ function populateAttributeSelectors(attributes) {
         });
         select.value = attributes[0] || '';
     };
-    [xAttrSelect, yAttrSelect, idAttrSelect, posSelector, chromSelector].forEach(createOptions);
+    [xAttrSelect, yAttrSelect, idAttrSelect, posSelector, chromSelector, yAxisSelector].forEach(createOptions);
 }
 
 function renderChart(dataMap) {
@@ -155,6 +156,7 @@ function renderChart(dataMap) {
         options: {
             responsive: true,
             onClick: (event, elements) => {
+                box.className = "boxshown";
                 if (elements.length > 0) {
                     const element = elements[0];
                     const datasetIndex = element.datasetIndex;
@@ -260,6 +262,7 @@ function query(rsid) {
 function mergeForManhattan() { 
   const pos = posSelector.value; 
   const chromosome = chromSelector.value; 
+  const yAxis = yAxisSelector.value; 
   const fileNames = Object.keys(allData);
   const maxLengths = {};  // e.g., { "1": 8, "2": 7, "X": 9 }
 
@@ -291,6 +294,7 @@ function mergeForManhattan() {
   populateAttributeSelectors(allAttributes); 
 
   xAttrSelect.value = "manhattanised"; 
+  yAttrSelect.value = yAxis; 
   renderChart(allData); 
 }
 
