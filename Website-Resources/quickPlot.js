@@ -149,6 +149,19 @@ function renderChart(dataMap) {
         data: { datasets },
         options: {
             responsive: true,
+            onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    const element = elements[0];
+                    const datasetIndex = element.datasetIndex;
+                    const index = element.index;
+
+                    const dataset = chart.data.datasets[datasetIndex];
+                    const dataPoint = dataset.data[index];
+                    
+                    openInNewTab(`https://www.genecards.org/Search/Keyword?queryString=${dataPoint.id}`)
+
+                }
+            },
             scales: {
                 x: { type: 'linear', title: { display: true, text: xAttr } },
                 y: { type: 'linear', title: { display: true, text: yAttr } }
@@ -168,3 +181,8 @@ function renderChart(dataMap) {
         }
     });
 }
+
+function openInNewTab(url) {
+    window.open(url, '_blank');
+}
+
