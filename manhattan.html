@@ -18,12 +18,17 @@
         </label>
         <div class="attributeSelectors">
           <div class="attributeSelector">
-            <label for="x-attr">X-Axis:</label>
-            <select id="x-attr"></select>
+            <label for="chrom-attr">Chromosome:</label>
+            <select id="chrom-attr"></select>
           </div>
           <div class="attributeSelector">
-            <label for="y-attr">Y-Axis:</label>
-            <select id="y-attr"></select>
+            <label for="pos-attr">Position:</label>
+            <select id="pos-attr"></select>
+          </div>
+          <div class="attributeSelector">
+            <label for="mlogp-attr">-Log(p):</label>
+            <!-- New label for the ID selector -->
+            <select id="mlogp-attr"></select>
           </div>
           <div class="attributeSelector">
             <label for="id-attr">ID:</label>
@@ -33,12 +38,12 @@
         </div>
         <p style="color: white;" id="message">A chart will appear on the left once you select plottable parameters (anything numeric). Set the ID to the rsid column name, and hover over the data points for more info. Click on a data point to query it with GNOMAD automatically.</p>
         <div id="box" class="box">GNOMAD query results will appear here. Click on a data point on the chart to use.</div>
-        <p> Looking to create a Manhattan Plot? Click <a href="manhattan.html">here</a>.</p>
+        <p> Looking to create other plots? Click <a href="index.html">here</a>.</p>
       </div>
-      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
-    <script src="Website-Resources/GWASExplorer.js"></script>
+    <script src="Website-Resources/manhattan.js"></script>
   </body>
   <footer>This site is NOT the GWAS Explorer hosted by the NCI.</footer>
 </html>
